@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
+    <style>
+
+      html{
+        background-color: #121212;
+        scroll-behavior: smooth;
+        font-family: 'Lato', sans-serif;
+      }
+
+      label, .coordinateLabel{
+        color: #BB86FC;
+      }
+
+      input{
+        background-color:  #121212;
+        border-color: #121212;
+      }
+
+      #matrixLabel{
+        color: #03DAC6;
+      }
+
+      #mycanvas{
+            margin-top: 35px;
+  	        box-shadow: 0 15px 6px -6px black;
+            scroll-behavior: smooth;
+      }
+
+      #Matrix{
+        margin-left: auto;
+        margin-right: auto;
+        border: none;
+        margin-top: 80px;
+        margin-bottom: 80px;
+        box-shadow: 0 8px 6px -6px black;
+        background-color: #1f1f1f;
+        padding: 20px;
+        transition: 0.5s;
+      }
+
+      #Matrix:hover, #PointRow:hover, #TriangleRow:hover, #QuadrilateralRow:hover{
+        background-color: #303030 !important;
+      }
+
+
+
+      #theTable{
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        align-content: center;
+        margin-top: 80px;
+        margin-bottom: 120px;
+        padding: 10px;
+        box-shadow: 0 12px 6px -6px black;
+        background-color: #1f1f1f;
+      }
+
+
+      #Point, #Triangle, #Quadrilateral{
+        margin: auto auto auto 5px;
+      }
+
+
+      .tableRow .cell:first-child{
+        text-align: left;
+        border-right: #58595F  solid 1px;
+      }
+
+      #TriangleRow .cell{
+        border-bottom: #58595F  solid 1px;
+        border-top: #58595F  solid 1px;
+      }
+
+
+      .tableRow{
+        display: table-row;
+        transition: 0.5s;
+      }
+
+      .tableRow .cell{
+        display: table-cell;
+        padding: 40px 20px 40px 20px;
+        transition: 1s;
+      }
+
+      .coordinateBox{
+        width: 50px;
+        text-align: center;
+        color:#58595F;
+      }
+
+      .coordinateLabel{
+        padding-right:20px
+      }
+
+      #ButtonContainer{
+        text-align: center;
+        margin-bottom: 100px;
+      }
+
+      #submit{
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        width: 140px;
+        height: 50px;
+        background: #101010;
+        box-shadow: 0 8px 6px -6px black;
+        color:#58595F;
+        transition: 0.5s;
+        border: white solid 1px;
+      }
+
+      #submit:hover {
+        width:250px;
+        box-shadow: 0 12px 6px -6px black;
+        background-color: #1f1f1f;
+      }
+
+
+      footer{
+        display: block;
+        text-align: center;
+        background-color: #1f1f1f;
+        color: #595959;
+        margin: 150px 0px 0px 0px;
+        padding: 5px;
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      .footerLinks{
+        color:#595959;
+        font-style: italic;
+      }
+
+      #footerTopLine {
+        font-size: 15px;
+      }
+
+      #footerBottomLine{
+        font-size: 13px;
+      }
+
+
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+
+  </head>
+
+  <body>
+    <p id="anchorPoint"></p>
+
+    <p align="center">
+      <canvas id="mycanvas" style="border: 1px solid black;" width="800px" height="600px"></canvas>
+    </p>
+
+    <div class = "tableElement">
+    <table id="Matrix">
+
+      <tr>
+        <td rowspan="2" class="coordinateLabel" id="matrixLabel">Matrix:</td>
+        <td> <input type="number" class="coordinateBox" placeholder="x&#8321;" id="matrixX1"> </td>
+        <td> <input type="number" class="coordinateBox" placeholder="x&#8322;" id="matrixX2"> </td>
+      </tr>
+
+      <tr>
+        <td> <input type="number" class="coordinateBox" placeholder="y&#8321;" id="matrixY1" > </td>
+        <td> <input type="number" class="coordinateBox" placeholder="y&#8322;" id="matrixY2" > </td>
+      </tr>
+
+    </table>
+    </div>
+
+
+    <div id="theTable">
+
+            <div class = "tableRow" id ="PointRow">
+
+              <div class = "cell">
+                <p><input type="radio" name="Choice" value="Point" checked="true" onclick="pointClicked()"> <label>Point</label></p>                              <!--First Radio is here-->
+              </div>
+
+
+
+              <div class="cell">
+
+                  <table id = "Point">
+
+                    <tr>
+
+                      <td class="coordinateLabel">Coordinates:</td>
+                      <td> <input type="number" class="coordinateBox" placeholder="x&#8321;" id="pointX"> </td>
+                      <td> <input type="number" class="coordinateBox" placeholder="y&#8321;" id="pointY" > </td>
+
+                    </tr>
+
+                  </table>
+
+              </div> <!--this is for cell-->
+
+            </div> <!--this div is for ending tablerow-->
+
+            <div class = "tableRow" id="TriangleRow">
+
+              <div class = "cell">
+                  <p> <input type="radio" name="Choice" value="Triangle" onclick="triangleClicked()"> <label>Triangle</label> </p>                              <!--Second Radio is here-->
+              </div>
+
+              <div class="cell">
+
+                    <table id="Triangle">
+
+                      <tr>
+
+                        <td rowspan="2" class="coordinateLabel">Coordinates:</td>
+                        <td> <input type="number" class="coordinateBox" placeholder="x&#8321;" id="triangleX1"> </td>
+                        <td> <input type="number" class="coordinateBox" placeholder="x&#8322;" id="triangleX2"> </td>
+                        <td> <input type="number" class="coordinateBox" placeholder="x&#8323;" id="triangleX3"> </td>
+
+                      </tr>
+
+                      <tr>
+
+                        <td> <input type="number" class="coordinateBox" placeholder="y&#8321;" id="triangleY1"> </td>
+                        <td> <input type="number" class="coordinateBox" placeholder="y&#8322;" id="triangleY2"> </td>
+                        <td> <input type="number" class="coordinateBox" placeholder="y&#8323;" id="triangleY3"> </td>
+
+                      </tr>
+
+                    </table>
+
+              </div> <!-- this is for the cell class-->
+
+            </div> <!-- this /div ends the tableRow-->
+
+            <div class = "tableRow" id="QuadrilateralRow">
+
+                  <div class="cell">
+                      <p> <input type="radio" name="Choice" value="Quadrilateral" onclick="quadrilateralClicked()"> <label>Quadrilateral</label> </p>                              <!--Third Radio is here-->
+                  </div>
+
+
+                  <div class = "cell">
+
+                      <table id="Quadrilateral">
+
+                        <tr>
+
+                          <td rowspan="2" class="coordinateLabel">Coordinates:</td>
+                          <td> <input type="number" class="coordinateBox" placeholder="x&#8321;" id="quadX1"> </td>
+                          <td> <input type="number" class="coordinateBox" placeholder="x&#8322;" id="quadX2"> </td>
+                          <td> <input type="number" class="coordinateBox" placeholder="x&#8323;" id="quadX3"> </td>
+                          <td> <input type="number" class="coordinateBox" placeholder="x&#8324;" id="quadX4"> </td>
+
+                        </tr>
+
+                        <tr>
+
+                          <td> <input type="number" class="coordinateBox" placeholder="y&#8321;" id="quadY1"> </td>
+                          <td> <input type="number" class="coordinateBox" placeholder="y&#8322;" id="quadY2"> </td>
+                          <td> <input type="number" class="coordinateBox" placeholder="y&#8323;" id="quadY3"> </td>
+                          <td> <input type="number" class="coordinateBox" placeholder="y&#8324;" id="quadY4"> </td>
+
+                        </tr>
+
+                  </table>
+
+               </div> <!--this is for the cell div-->
+
+          </div> <!-- this is for the tableRow class div-->
+
+    </div> <!-- this is for theTable ID div-->
+
+    <div id="ButtonContainer">
+      <a href="#anchorPoint">
+      <button id="submit" onclick="submit()">Submit</button>
+      </a>
+    </div>
+
+
+    <footer>
+
+      <p id="footerTopLine">This tool has been developed for <b>Roots of Unity</b> by  <em>Tahsin Hasem.</em></p>
+      <p id="footerBottomLine"> Visit our <em><a class="footerLinks" href="https://www.facebook.com/rootsofun1ty" target="_blank">Facebook Page</a></em> or our <a class="footerLinks" href="https://www.youtube.com/channel/UCzDopR9S4Fsn3i7-RlVutYQ" target="_blank">YouTube Channel</a> for more</p>
+
+    </footer>
+
+
+    <!-- Backend Script-->
+    <script>
+
+      function submit(){
+
+        var matrix = getMatrixArray();
+        var selecedOption = "";
+        var coordinateArray;
+
+        var radioElements = document.getElementsByName("Choice");
+
+        //finds out which radio is selected and assigns the value to selectedOption
+        for(var i = 0; i < radioElements.length; i++){
+          if(radioElements[i].checked){
+            selectedOption = radioElements[i].value;
+          }
+        }
+
+
+        //gets the coordinateArray depending on which option was selected
+        if(selectedOption == "Point"){
+          coordinateArray = getPointCoordinates();
+        }else if(selectedOption == "Triangle"){
+          coordinateArray = getTriangleCoordinates();
+        }else if(selectedOption == "Quadrilateral"){
+          coordinateArray = getQuadrilateralCoordinates();
+        }
+
+        var stringText = "";
+
+        for(var i = 0; i < coordinateArray.length; i++){
+          stringText = stringText + coordinateArray[i] + ", ";
+        }
+
+        initialise(matrix, selectedOption, coordinateArray);
+
+      }
+
+
+
+
+
+
+      function getPointCoordinates(){
+
+        var array;
+
+        var pointX = document.getElementById("pointX").value;
+        if(pointX == ""){pointX = 0;}
+
+        var pointY = document.getElementById("pointY").value;
+        if(pointY == ""){pointY = 0;}
+
+        array = [pointX, pointY];
+
+        return array;
+
+      }
+
+
+
+
+
+      function getTriangleCoordinates(){
+
+        var array;
+
+        var triangleX1 = document.getElementById("triangleX1").value;
+        if(triangleX1 == ""){triangleX1 = 0;}
+
+        var triangleX2 = document.getElementById("triangleX2").value;
+        if(triangleX2 == ""){triangleX2 = 0;}
+
+        var triangleX3 = document.getElementById("triangleX3").value;
+        if(triangleX3 == ""){triangleX3 = 0;}
+
+
+        var triangleY1 = document.getElementById("triangleY1").value;
+        if(triangleY1 == ""){triangleY1 = 0;}
+
+        var triangleY2 = document.getElementById("triangleY2").value;
+        if(triangleY2 == ""){triangleY2 = 0;}
+
+        var triangleY3 = document.getElementById("triangleY3").value;
+        if(triangleY3 == ""){triangleY3 = 0;}
+
+
+
+        array = [triangleX1, triangleY1, triangleX2, triangleY2, triangleX3, triangleY3];
+
+
+        return array;
+
+      }
+
+
+
+
+      function getQuadrilateralCoordinates(){
+          var array;
+
+
+          var quadX1 = document.getElementById("quadX1").value;
+          if(quadX1 == ""){quadX1 = 0;}
+
+          var quadX2 = document.getElementById("quadX2").value;
+          if(quadX2 == ""){quadX2 = 0;}
+
+          var quadX3 = document.getElementById("quadX3").value;
+          if(quadX3 == ""){quadX3 = 0;}
+
+          var quadX4 = document.getElementById("quadX4").value;
+          if(quadX4 == ""){quadX4 = 0;}
+
+
+
+          var quadY1 = document.getElementById("quadY1").value;
+          if(quadY1 == ""){quadY1 = 0;}
+
+          var quadY2 = document.getElementById("quadY2").value;
+          if(quadY2 == ""){quadY2 = 0;}
+
+          var quadY3 = document.getElementById("quadY3").value;
+          if(quadY3 == ""){quadY3 = 0;}
+
+          var quadY4 = document.getElementById("quadY4").value;
+          if(quadY4 == ""){quadY4 = 0;}
+
+          array = [quadX1, quadY1, quadX2, quadY2, quadX3, quadY3, quadX4, quadY4];
+
+          return array;
+
+      }
+
+
+
+
+
+      function getMatrixArray(){
+
+        var x1 = document.getElementById("matrixX1").value;
+        if(x1 == ""){x1 = 0;}
+
+        var x2 = document.getElementById("matrixX2").value;
+        if(x2 == ""){x2 = 0;}
+
+        var y1 = document.getElementById("matrixY1").value;
+        if(y1 == ""){y1 = 0;}
+
+        var y2 = document.getElementById("matrixY2").value;
+        if(y2 == ""){y2 = 0;}
+
+        var matrix = [x1, x2, y1, y2];
+
+        return matrix;
+
+      }
+
+    </script>
+
+
+    <!-- onClick input button script-->
+    <script>
+
+
+      function pointClicked() {
+        document.getElementById("PointRow").style.backgroundColor = "#292929";
+        document.getElementById("TriangleRow").style.backgroundColor = "#1f1f1f";
+        document.getElementById("QuadrilateralRow").style.backgroundColor = "#1f1f1f";
+      }
+
+      function triangleClicked() {
+        document.getElementById("PointRow").style.backgroundColor = "#1f1f1f";
+        document.getElementById("TriangleRow").style.backgroundColor = "#292929";
+        document.getElementById("QuadrilateralRow").style.backgroundColor = "#1f1f1f";
+      }
+
+      function quadrilateralClicked() {
+        document.getElementById("PointRow").style.backgroundColor = "#1f1f1f";
+        document.getElementById("TriangleRow").style.backgroundColor = "#1f1f1f";
+        document.getElementById("QuadrilateralRow").style.backgroundColor = "#292929";
+      }
+
+
+    </script>
+
+
+    <!-- FrontEnd Script -->
+    <script>
+    var initialise = function(MATRIX, CHOICE, ARRAY){
+
+             var sketchProc = function(processingInstance) {
+              with (processingInstance) {
+                 size(1120, 640);
+                 frameRate(30);
+
+                 // ProgramCodeGoesHere
+                   var w = width;
+                   var h = height;
+
+                   var matrix = MATRIX;
+
+                   var SCALE = 40;
+
+                   //color shades
+                   var realStroke = color(230, 41, 115, 255);
+                   var realFill = color(230, 41, 115, 150);
+
+                   var imageStroke = color(27, 10, 90, 255);
+                   var imageFill = color(51, 12, 202, 150);
+
+                   var textColor = color(227, 227, 227, 150);
+
+                   var gridColor = color(227, 227, 227, 50);
+
+                   var axesColor = color(227, 227, 227);
+
+                   var a = color(102, 108, 137, 50);
+
+
+                   //Functions for drawing
+
+                   var transformPoint = function(array){
+
+                       //scaling the values for use
+                       for(var i = 0; i < array.length; i++){
+
+                           array[i] = array[i]*SCALE;
+
+                       }
+
+                       //draw real point
+                        stroke(realStroke);
+                        fill(realFill);
+                        ellipse(array[0] + w/2, h/2 - array[1], 5, 5);
+
+
+                        stroke(imageStroke);
+                        fill(imageFill);
+                        var newP = [0,0];
+
+                        //calculate coordinates
+                        newP[0] = matrix[0] * array[0] + matrix[1] * array[1];
+                        newP[1] = matrix[2] * array[0] + matrix[3] * array[1];
+
+                        //draw image point
+                        ellipse(newP[0]+w/2, h/2 - newP[1], 5, 5);
+
+                   };
+
+
+                   var transformTriangle = function(array){
+
+                       //scaling the values for use
+                       for(var i = 0; i < array.length; i++){
+
+                           array[i] = array[i]*SCALE;
+
+                       }
+
+
+                       stroke(realStroke);
+                       fill(realFill);
+
+                       //draw real triangle
+                       triangle(array[0] + w/2, h/2 - array[1],
+                                array[2] + w/2, h/2 - array[3],
+                                array[4] + w/2, h/2 - array[5]);
+
+
+
+
+                       //calculate new coordinates
+                       var newP = [0,0,0,0,0,0];
+
+
+                       for(var i = 0; i < newP.length ; i+=2){
+
+                           newP[i] = matrix[0] * array[i] + matrix[1] * array[i+1];
+                           newP[i+1] = matrix[2] * array[i] + matrix[3] * array[i+1];
+
+                       }
+
+                       //draw image
+                       stroke(imageStroke);
+                       fill(imageFill);
+
+                        triangle(newP[0] + w/2, h/2 - newP[1],
+                                 newP[2] + w/2, h/2 - newP[3],
+                                 newP[4] + w/2, h/2 - newP[5]);
+
+                   };
+
+
+                   var transformQuad = function(array){
+
+                       //scaling the values for use
+                       for(var i = 0; i < array.length; i++){
+                           array[i] = array[i]*SCALE;
+                       }
+
+
+                       stroke(realStroke);
+                       fill(realFill);
+
+                       //draw real triangle
+                       quad(array[0] + w/2, h/2 - array[1],
+                            array[2] + w/2, h/2 - array[3],
+                            array[4] + w/2, h/2 - array[5],
+                            array[6] + w/2, h/2 - array[7]);
+
+
+                       //calculate new coordinates
+                       var newP = [0, 0, 0, 0, 0, 0, 0, 0];
+
+                       for(var i = 0; i < newP.length ; i+=2){
+                           newP[i] = matrix[0] * array[i] + matrix[1] * array[i+1];
+                           newP[i+1] = matrix[2] * array[i] + matrix[3] * array[i+1];
+                       }
+
+                       //draw image
+                       stroke(imageStroke);
+                       fill(imageFill);
+
+                        quad(newP[0] + w/2, h/2 - newP[1],
+                             newP[2] + w/2, h/2 - newP[3],
+                             newP[4] + w/2, h/2 - newP[5],
+                             newP[6] + w/2, h/2 - newP[7]);
+
+                   };
+
+
+
+
+
+
+
+
+                   var run = function() {
+
+                     background(0, 0, 0);
+                     stroke(axesColor);
+
+
+                        line(0, h/2, w, h/2); //x-axis
+                        line(w/2, 0, w/2, h); //y-axis
+
+                       //drawing and labelling vertical lines
+                       for(var i = 0; i < w; i+=SCALE){
+
+                          stroke(gridColor);
+                           line(i, 0, i, h);
+
+                           fill(textColor);
+                           textSize(10);
+
+                            if(i !== w/2){
+                               text((i/SCALE) - (w/(2*SCALE)), i-2.7, h/2 + 13);
+                           }
+
+                       }
+
+
+
+                       //drawing and labelling horizontal lines
+                       for(var i = 0; i < h; i+=SCALE){
+
+                           stroke(gridColor);
+                           line(0, i, w, i);
+
+                           stroke(textColor);
+                           textSize(10);
+
+                           if(i !== h/2){
+                               text((h/(2*SCALE)) - (i/SCALE), w/2-14, i+5);
+                           }
+
+                       }
+
+
+
+                      if(CHOICE == "Point"){
+                        transformPoint(ARRAY);
+                      }else if(CHOICE == "Triangle"){
+                        transformTriangle(ARRAY);
+                      }else if(CHOICE == "Quadrilateral"){
+                        transformQuad(ARRAY);
+                      }
+
+
+                      textSize(15);
+                      fill(realFill);
+                      stroke(realStroke);
+                      rect(width-70, height-45, 15, 15);
+                      fill(255, 255, 255);
+                      text("Real",width-50, height-33);
+
+                      fill(imageFill);
+                      stroke(imageStroke);
+                      rect(width-70, height-20, 15, 15);
+                      fill(225, 225, 225);
+                      text("Image",width-50, height-7);
+
+                   };
+
+
+                   run();
+
+
+             }};
+
+             // Get the canvas that Processing-js will use
+             var canvas = document.getElementById("mycanvas");
+             // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
+             var processingInstance = new Processing(canvas, sketchProc);
+
+          };
+
+
+        initialise([0,0,0,0], "Point", [0,0]);
+    </script>
+
+
+
+  </body>
+</html>
