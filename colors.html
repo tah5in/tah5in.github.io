@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Raleway:wght@100&display=swap" rel="stylesheet"> 
+        
+        
+        
+        <style>
+            body{
+                background-color: white;
+                background-image: url(https://images.unsplash.com/photo-1601662528567-526cd06f6582?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80);
+                background-size: 25% auto;
+                background-repeat: repeat;
+            }
+            
+            a{
+                color: inherit;
+                text-decoration: underline;
+                text-decoration-color: white;
+            }
+            
+            #linear{
+              
+               position: relative;
+               border-radius: 3%;
+               width: 250px;
+               height: 450px;
+               left: 50%;
+               top: 50px;
+               margin-left: -125px;
+               background: transparent;
+
+               z-index: 1;
+               overflow-x: hidden;
+               overflow-y: hidden;
+               
+               
+               box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+            }
+            
+            
+            #hello{
+                position: absolute;
+                right: 0px;
+                width: 900px;
+                height: 900px;
+                background: linear-gradient(35deg, #aa4b6b, #6b6b83, #3b8d99);
+                z-index: -1;
+                animation-name: moving-background-1;
+                animation-duration: 2.5s;
+                animation-iteration-count: infinite;
+            }
+            
+            
+            #greeting{
+                font-family: 'Inconsolata', monospace;
+                font-family: 'Raleway', sans-serif;
+                margin-left: 10px;
+                margin-top: 25px;
+                z-index: 1;
+            }
+            
+            .writing{
+                z-index: 1;
+                color: white;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            
+            hr{
+                margin-top: -14px;
+                opacity: 0.9;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            
+            
+            .content{
+                font-family: 'Inconsolata', monospace;
+            }
+            
+            
+            
+            #last{
+                position: absolute;
+                bottom: 3%;
+                width: 100%;
+            }
+            
+            .socials{
+                float: left;
+                text-align: center;
+                width: 50%;
+            }
+            
+            
+            @keyframes moving-background-1{
+                
+                0%{
+                    transform: translate(0px, 0px);
+                }
+                50%{
+                    transform: translate(50%, -50%);
+                }
+                100%{
+                    transform: translate(0px, 0px);
+                }
+                
+            }
+            
+            
+        </style>
+        
+        
+    </head>
+    <body>
+        <div id="linear">
+            
+           
+            <div id="hello">
+                
+            </div>
+            
+            <div class="witing">
+                <h1 id="greeting" class="writing">Hello!!</h1>
+                <hr class="writing">
+                <p class='writing content'>Have an idea you'd like to materialize? </p><!-- comment -->
+                <p class='writing content'>Need to make a webpage for it?<p>
+                <p class='writing content'>Contact <a target="_blank" href="mailto:tahsinhasem@gmail.com"> me</a> to help you materialize your ideas and bring you closer to your goals asap!</p>
+            </div>
+            
+            
+            <div id="last">
+                <div class="instagram socials"><a target="_blank" href="https://www.instagram.com/tah5in/"><img width="50" src="images/instagram-white.png" alt="Instagram link"/></a></div>
+                <div class="facebook socials"><a target="_blank" href="https://www.facebook.com/tahsin.hasem.aonim"> <img width="50" src="images/facebook.png" alt="Facebook link"/> </a></div>
+            </div>
+            
+            
+        </div>
+    </body>
+</html>
